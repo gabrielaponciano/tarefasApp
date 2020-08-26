@@ -1,8 +1,10 @@
 <ion-content color="primary" [fullscreen]="true">
   
+
   <div class="ion-text-center">
     <img src="assets/etec2.png" alt="Etec">
   </div>
+
 
   <ion-item class="ion-text-center ion-button-light">
     <ion-label>
@@ -16,48 +18,101 @@
       </ion-label>
     </ion-item-divider>
 
+    <form [formGroup]="formRegistro">
     <ion-item lines="none">
       <ion-label position="stacked">Nome</ion-label>
-      <ion-input type="text" placeholder="Digite seu nome"></ion-input>
+      <ion-input formControlName="nome" type="text" placeholder="Digite seu nome"></ion-input>
+      <ng-container *ngFor="let erro of mensagens_validacao.nome">
+        <span class="msg-erro" 
+        *ngIf="formRegistro.get('nome').hasError(erro.tipo) && (formRegistro.get('nome').dirty || formRegistro.get('nome').touched)">
+        {{erro.mensagem}}
+        </span>
+        </ng-container>
     </ion-item>
 
     <ion-item lines="none">
       <ion-label position="stacked">CPF</ion-label>
-      <ion-input type="text" placeholder="Digite seu CPF"></ion-input>
+      <ion-input [brmasker]="{person: true}" maxLength="14" formControlName="cpf" type="text" placeholder="Digite seu CPF"></ion-input>
+      <ng-container *ngFor="let erro of mensagens_validacao.cpf">
+        <span class="msg-erro" 
+        *ngIf="formRegistro.get('cpf').hasError(erro.tipo) && (formRegistro.get('cpf').dirty || formRegistro.get('cpf').touched)">
+        {{erro.mensagem}}
+        </span>
+        </ng-container>
     </ion-item>
 
     <ion-item lines="none">
-      <ion-label position="stacked">Data de nascimento</ion-label>
-      <ion-datetime displayFormat="DD/MM/YY" placeholder="Selecione" cancelText="Cancelar" doneText="OK"></ion-datetime>
+      <ion-label position="stacked">Data de Nascimento</ion-label>
+      <ion-datetime  formControlName="dataNascimento" displayFormat="DD/MM/YYYY" placeholder="Selecione" cacelText="Cancelar" doneText="OK"></ion-datetime>
+      <ng-container *ngFor="let erro of mensagens_validacao.dataNascimento">
+        <span class="msg-erro"
+        *ngIf="formRegistro.get('dataNascimento').hasError(erro.tipo) && (formRegistro.get('dataNascimento').dirty || formRegistro.get('dataNascimento').touched)">
+        {{erro.mensagem}}
+   
+        </span>
+   
+      </ng-container>
     </ion-item>
-
+     
     <ion-item lines="none">
       <ion-label position="stacked">Gênero</ion-label>
-      <ion-select placeholder="Selecione" cancelText="Cancelar" doneText="OK">
-        <ion-select-option value="F">Feminino</ion-select-option>
-        <ion-select-option value="M">Masculino</ion-select-option>
-        <ion-select-option value="O">Outro</ion-select-option>
+      <ion-select  formControlName="genero"  okText="OK" placeholder="Selecione" cancelText="Cancelar">
+       <ion-select-option value="F">Feminino</ion-select-option>
+       <ion-select-option value="M">Masculino</ion-select-option>
+       <ion-select-option value="O">Outro</ion-select-option>
       </ion-select>
-    </ion-item>
+      <ng-container *ngFor="let erro of mensagens_validacao.genero">
+        <span class="msg-erro"
+        *ngIf="formRegistro.get('genero').hasError(erro.tipo) && (formRegistro.get('genero').dirty || formRegistro.get('genero').touched)">
+        {{erro.mensagem}}
+   
+        </span>
+   
+      </ng-container>
+      </ion-item>
 
     <ion-item lines="none">
       <ion-label position="stacked">Celular</ion-label>
-      <ion-input type="text" placeholder="Digite seu Celular"></ion-input>
+      <ion-input [brmasker]="{phone: true}" formControlName="celular" type="text" placeholder="Digite seu Celular"></ion-input>
+      <ng-container *ngFor="let erro of mensagens_validacao.celular">
+        <span class="msg-erro" 
+        *ngIf="formRegistro.get('celular').hasError(erro.tipo) && (formRegistro.get('celular').dirty || formRegistro.get('celular').touched)">
+        {{erro.mensagem}}
+        </span>
+        </ng-container>
     </ion-item>
 
     <ion-item lines="none">
       <ion-label position="stacked">E-mail</ion-label>
-      <ion-input type="text" placeholder="Digite seu E-mail"></ion-input>
+      <ion-input formControlName="email" type="text" placeholder="Digite seu E-mail"></ion-input>
+      <ng-container *ngFor="let erro of mensagens_validacao.email">
+        <span class="msg-erro" 
+        *ngIf="formRegistro.get('email').hasError(erro.tipo) && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
+        {{erro.mensagem}}
+        </span>
+        </ng-container>
     </ion-item>
 
     <ion-item lines="none">
       <ion-label position="stacked">Senha</ion-label>
-      <ion-input type="password" placeholder="Escolha uma Senha"></ion-input>
+      <ion-input formControlName="senha" type="password" placeholder="Escolha uma Senha"></ion-input>
+      <ng-container *ngFor="let erro of mensagens_validacao.senha">
+        <span class="msg-erro" 
+        *ngIf="formRegistro.get('senha').hasError(erro.tipo) && (formRegistro.get('senha').dirty || formRegistro.get('senha').touched)">
+        {{erro.mensagem}}
+        </span>
+        </ng-container>
     </ion-item>
 
     <ion-item lines="none">
       <ion-label position="stacked">Confirmar</ion-label>
-      <ion-input type="password" placeholder="Confirme sua Senha"></ion-input>
+      <ion-input formControlName="confirma" type="password" placeholder="Confirme sua Senha"></ion-input>
+      <ng-container *ngFor="let erro of mensagens_validacao.confirma">
+        <span class="msg-erro" 
+        *ngIf="formRegistro.get('confirma').hasError(erro.tipo) && (formRegistro.get('confirma').dirty || formRegistro.get('confirma').touched)">
+        {{erro.mensagem}}
+        </span>
+        </ng-container>
     </ion-item>
 
     <ion-item button class="ion-button-light ion-text-center">
@@ -70,6 +125,7 @@
     <ion-button expand="full" fill="clear" color="light" routerLink="/login">
       VOLTAR
     </ion-button>
+  </form>
   
 
 </ion-content>
