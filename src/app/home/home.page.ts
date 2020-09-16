@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { UsuariosService } from '../services/usuarios.service';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,8 @@ export class HomePage {
 
   constructor(public alertController: AlertController,
     private usuarioService: UsuariosService,
-    private router: Router) {}
+    private router: Router,
+    public toastController: ToastController) {}
 
     async ionViewWillEnter(){
 
@@ -35,12 +36,21 @@ export class HomePage {
           handler: () => {
             this.usuarioService.removerUsuarioLogado();
             this.router.navigateByUrl('/login');
+            this.sair();
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  async sair() {
+    const toast = await this.toastController.create({
+      message: 'Logout efetuado!',
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
